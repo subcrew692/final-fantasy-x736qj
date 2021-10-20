@@ -1,19 +1,13 @@
 <template>
-  <div>
-    <JwtConverter />
-  </div>
-  <div>Testing</div>
+  <div>Testifffng</div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
-import JwtConverter from './components/JwtConverter.vue';
+import { defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'App',
-  setup: () => {
-    return {};
-  },
+  setup() {},
 });
 </script>
 

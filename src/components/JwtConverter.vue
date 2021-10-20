@@ -35,8 +35,8 @@
 import { computed, defineComponent, ref } from 'vue';
 
 export default defineComponent({
-  name: 'App',
-  setup: () => {
+  name: 'JwtConverter',
+  setup() {
     const now = new Date();
     const year = ref(now.getFullYear());
     const month = ref(now.getMonth() + 1);
