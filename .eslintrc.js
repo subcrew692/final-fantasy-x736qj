@@ -17,5 +17,8 @@ module.exports = {
     'no-plusplus': 'off',
     'comma-dangle': 'off',
     'implicit-arrow-linebreak': 0,
+    'max-len': ['error', { 'code': 200 }],
+    'no-trailing-spaces': ['error', { 'ignoreComments': true }],
+    '@typescript-eslint/no-empty-function': 0,
   },
 };

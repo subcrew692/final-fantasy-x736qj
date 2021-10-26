@@ -21,6 +21,6 @@ module.exports = {
     // subpage: 'src/subpage/main.ts',
   },
   devServer: {
-    port: 9487,
+    port: 817,
   },
 };
