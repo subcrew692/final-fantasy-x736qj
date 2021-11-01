@@ -1,8 +1,8 @@
 <template>
   <div class="flex-container">
     <div class="flex-option">
-    <div class="item">goodboy</div>
-    <div class="item">goodgirl</div>
+      <div class="item">goodboy</div>
+      <div class="item">goodgirl</div>
     </div>
     <div class="item">goodboy</div>
     <div class="item">goodgirl</div>

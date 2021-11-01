@@ -1,17 +1,17 @@
 <template>
   <div>
-    <JwtConverter/>
+    <Calculate />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import JwtConverter from './components/JwtConverter.vue';
+import Calculate from './components/Calculate.vue';
 
 export default defineComponent({
   name: 'App',
   components: {
-    JwtConverter
+    Calculate,
   },
   setup() {},
 });
