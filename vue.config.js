@@ -20,7 +20,19 @@ module.exports = {
     // Output filename is inferred to be `subpage.html`.
     // subpage: 'src/subpage/main.ts',
   },
+
   devServer: {
     port: 817,
   },
+
+  pluginOptions: {
+    quasar: {
+      importStrategy: 'kebab',
+      rtlSupport: false
+    }
+  },
+
+  transpileDependencies: [
+    'quasar'
+  ]
 };
