@@ -15,6 +15,7 @@ module.exports = {
     'implicit-arrow-linebreak': 0,
     'max-len': ['error', { code: 200 }],
     'no-trailing-spaces': ['error', { ignoreComments: true }],
+    'object-curly-newline': 0,
     '@typescript-eslint/no-empty-function': 0,
   },
 };

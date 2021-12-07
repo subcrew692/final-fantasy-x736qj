@@ -12,7 +12,8 @@
     "core-js": "3.18.3",
     "quasar": "^2.0.0",
     "vue": "3.0.11",
-    "vue-router": "4.0.6"
+    "vue-router": "4.0.6",
+    "rxjs": "6.5.2"
   },
   "devDependencies": {
     "@quasar/app": "2.0.0",
