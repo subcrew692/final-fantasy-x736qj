@@ -28,5 +28,6 @@ module.exports = {
     '@typescript-eslint/ban-ts-comment': 0,
     'no-unused-expressions': 0,
     'operator-linebreak': 0,
+    'no-param-reassign': 0,
   },
 };

@@ -39,7 +39,7 @@
         <q-header elevated>
           <q-toolbar class="glossy">
             <q-toolbar-title>{{ d.type }}</q-toolbar-title>
-            <q-btn flat round dense icon="content_copy" @click="copyScript(d.type, d.script)" />
+            <q-btn flat round dense :icon="d.icon" @click="copyScript(d)" :disable="d.icon === 'check'" />
           </q-toolbar>
         </q-header>
         <q-page-container>
@@ -47,40 +47,13 @@
             <p>{{ d.script }}</p>
           </q-page>
         </q-page-container>
-
-        <q-dialog v-model="displayCopyDialog" seamless position="top">
-          <q-card style="width: 350px">
-            <q-card-section class="row items-center no-wrap">
-              <div>
-                <div class="text-weight-bold">{{ copyMessageTitle }}</div>
-                <div class="text-grey">Copied!!</div>
-              </div>
-
-              <!-- <q-space />
-
-              <q-btn flat round icon="play_arrow" />
-              <q-btn flat round icon="pause" />
-              <q-btn flat round icon="close" v-close-popup /> -->
-            </q-card-section>
-          </q-card>
-        </q-dialog>
       </q-layout>
-      <!-- <div class="row" v-for="(d, index) in deployScripts" :key="index">
-        <div class="col">
-          <q-card class="bg-secondary text-white">
-            <q-card-section horizontal>
-              <div class="text-subtitle2"><q-btn flat round icon="content_copy" /> {{ d.type }}</div>
-              <div class="text-subtitle2">{{ d.script }}</div>
-            </q-card-section>
-          </q-card>
-        </div>
-      </div> -->
     </div>
   </q-page>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref, Ref, watch } from 'vue';
+import { defineComponent, reactive, ref, Ref } from 'vue';
 
 interface IMerchants {
   kto: boolean;
@@ -101,6 +74,7 @@ interface IExtraVars {
 interface IDeployScript {
   type: string;
   script: string;
+  icon: string;
 }
 
 function getHostName(host: string) {
@@ -142,17 +116,7 @@ export default defineComponent({
     });
     const deployEnv = ref('stg');
     const deployScripts: Ref<IDeployScript[]> = ref([]);
-
-    const displayCopyDialog = ref(false);
-    const copyMessageTitle = ref('');
-
-    watch(displayCopyDialog, (val) => {
-      if (val) {
-        setTimeout(() => {
-          displayCopyDialog.value = false;
-        }, 2000);
-      }
-    });
+    const copyIcon = ref('content_copy');
 
     const onSubmit = () => {
       if (!deployEnv.value) {
@@ -169,6 +133,7 @@ export default defineComponent({
             host: 'SbkForwardNginx',
             tag: tag.value,
           }),
+          icon: 'content_copy',
         });
       if (merchant.value) {
         merchants.kto &&
@@ -182,6 +147,7 @@ export default defineComponent({
               tag: tag.value,
               id: 1,
             }),
+            icon: 'content_copy',
           });
         merchants.wb &&
           deployScripts.value.push({
@@ -194,6 +160,7 @@ export default defineComponent({
               tag: tag.value,
               id: 2,
             }),
+            icon: 'content_copy',
           });
         merchants.dc &&
           deployScripts.value.push({
@@ -206,6 +173,7 @@ export default defineComponent({
               tag: tag.value,
               id: 901,
             }),
+            icon: 'content_copy',
           });
         merchants.tc &&
           deployScripts.value.push({
@@ -218,19 +186,23 @@ export default defineComponent({
               tag: tag.value,
               id: 999,
             }),
+            icon: 'content_copy',
           });
       }
       tcForward.value &&
         deployScripts.value.push({
           type: 'TC-Forward',
           script: generateTcForward(deployEnv.value, 'tc-forward', 'ext-tc-docker-host', tag.value),
+          icon: 'content_copy',
         });
     };
 
-    const copyScript = (type: string, script: string) => {
-      navigator.clipboard.writeText(script);
-      copyMessageTitle.value = type;
-      displayCopyDialog.value = true;
+    const copyScript = (deployScript: IDeployScript) => {
+      navigator.clipboard.writeText(deployScript.script);
+      deployScript.icon = 'check';
+      setTimeout(() => {
+        deployScript.icon = 'content_copy';
+      }, 1000);
     };
 
     return {
@@ -241,8 +213,7 @@ export default defineComponent({
       tcForward,
       merchants,
       deployEnv,
-      displayCopyDialog,
-      copyMessageTitle,
+      copyIcon,
       onSubmit,
       copyScript,
       deployScripts,
