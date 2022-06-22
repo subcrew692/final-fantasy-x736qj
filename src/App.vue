@@ -14,11 +14,12 @@
 
       <q-tabs align="left">
         <q-route-tab to="/generate" label="generate" exact />
+        <q-route-tab to="/faker" label="fakers" exact />
         <!-- <q-route-tab to="/page2" label="Page Two" exact />
         <q-route-tab to="/page3" label="Page Three" exact /> -->
       </q-tabs>
     </q-header>
-    <q-page-container><router-view/></q-page-container>
+    <q-page-container><router-view /></q-page-container>
   </q-layout>
 </template>
 
@@ -27,8 +28,7 @@ import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
   name: 'App',
-  components: {
-  },
+  components: {},
   setup() {
     const leftDrawerOpen = ref(false);
 

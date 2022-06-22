@@ -19,7 +19,12 @@ const routes: Array<RouteRecordRaw> = [
     path: '/generate',
     name: 'Generate',
     component: () => import(/* webpackChunkName: "generate" */ '../views/Generate.vue'),
-  }
+  },
+  {
+    path: '/faker',
+    name: 'Faker',
+    component: () => import(/* webpackChunkName: "generate" */ '../views/Faker.vue'),
+  },
 ];
 
 const router = createRouter({

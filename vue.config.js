@@ -1,4 +1,6 @@
 module.exports = {
+  publicPath: process.env.VUE_APP_ROOTPATH,
+  outputDir: './dist',
   pages: {
     index: {
       // entry for the page

@@ -12,13 +12,14 @@
           </q-input>
 
           <q-checkbox v-model="forward" label="Forward" color="cyan" />
+          <q-checkbox v-model="backoffice" label="Backoffice" color="cyan" />
           <q-checkbox v-model="merchant" label="Merchant" color="cyan" />
           <q-checkbox v-model="tcForward" label="Tc-Forward" color="cyan" />
 
           <div v-if="merchant">
             <q-checkbox v-model="merchants.kto" label="KTO" color="cyan" />
             <q-checkbox v-model="merchants.wb" label="WB" color="cyan" />
-            <q-checkbox v-model="merchants.dc" label="DC" color="cyan" />
+            <q-checkbox v-model="merchants.spplus" label="SP+" color="cyan" />
             <q-checkbox v-model="merchants.tc" label="TC" color="cyan" />
           </div>
 
@@ -35,7 +36,14 @@
       </div>
     </q-form>
     <div class="q-pa-md">
-      <q-layout view="lHh lpr lFf" container style="height: 125px; margin-bottom: 15px" class="shadow-2 rounded-borders" v-for="(d, index) in deployScripts" :key="index">
+      <q-layout
+        view="lHh lpr lFf"
+        container
+        style="height: 125px; margin-bottom: 15px"
+        class="shadow-2 rounded-borders"
+        v-for="(d, index) in deployScripts"
+        :key="index"
+      >
         <q-header elevated>
           <q-toolbar class="glossy">
             <q-toolbar-title>{{ d.type }}</q-toolbar-title>
@@ -58,7 +66,7 @@ import { defineComponent, reactive, ref, Ref } from 'vue';
 interface IMerchants {
   kto: boolean;
   wb: boolean;
-  dc: boolean;
+  spplus: boolean;
   tc: boolean;
 }
 
@@ -86,7 +94,7 @@ function generateScript(extraVars: IExtraVars): string {
   const nginxType = `nginxType=${extraVars.type}`;
   const targetClient = `targetClient=${extraVars.target}`;
   const host = `host=${extraVars.host}`;
-  const hostName = `hostName=${getHostName(extraVars.host)}`;
+  const hostName = `hostName=${getHostName(extraVars.env)}`;
   const tag = `tag=${extraVars.tag}`;
   const merchantId = extraVars.id ? ` merchantId=${extraVars.id}` : '';
   return `ansible-playbook /data-disk/deploy/ansible/nginx/deploy-nginx.yml --extra-vars 'user=nginxadmin ${deployEnv} ${nginxType} ${targetClient} ${hostName} ${host} ${tag}${merchantId}'`;
@@ -97,21 +105,23 @@ function generateTcForward(env: string, target: string, host: string, tag: strin
   const targetClient = `targetClient=${target}`;
   const hostValue = `host=${host}`;
   const tagValue = `tag=${tag}`;
-  return `ansible-playbook /data-disk/deploy/ansible/nginx/deploy-release-tc-forward.yml --extra-vars 'user=dkadmin ${deployEnv} ${targetClient} ${hostValue} ${tagValue}`;
+  const hostName = `hostName=${getHostName(env)}`;
+  return `ansible-playbook /data-disk/deploy/ansible/nginx/deploy-release-tc-forward.yml --extra-vars 'user=dkadmin ${deployEnv} ${targetClient} ${hostValue} ${tagValue} ${hostName}'`;
 }
 
 export default defineComponent({
   name: 'Generate',
   setup() {
-    const tag = ref('nginx__release__sprint_2111_2__20211220__1');
+    const tag = ref('A022-release0309-0');
     const tagRules = [(val) => !!val || 'Tag is required'];
     const forward = ref(false);
+    const backoffice = ref(false);
     const merchant = ref(false);
     const tcForward = ref(false);
     const merchants: IMerchants = reactive({
       kto: false,
       wb: false,
-      dc: false,
+      spplus: false,
       tc: false,
     });
     const deployEnv = ref('stg');
@@ -131,6 +141,18 @@ export default defineComponent({
             type: 'forward',
             target: 'forward-nginx',
             host: 'SbkForwardNginx',
+            tag: tag.value,
+          }),
+          icon: 'content_copy',
+        });
+      backoffice.value &&
+        deployScripts.value.push({
+          type: 'Backoffice',
+          script: generateScript({
+            env: deployEnv.value,
+            type: 'bo',
+            target: 'ext-nginx-bo',
+            host: 'SbkBoNginx',
             tag: tag.value,
           }),
           icon: 'content_copy',
@@ -162,16 +184,16 @@ export default defineComponent({
             }),
             icon: 'content_copy',
           });
-        merchants.dc &&
+        merchants.spplus &&
           deployScripts.value.push({
-            type: 'Merchant-DC',
+            type: 'Merchant-SP+',
             script: generateScript({
               env: deployEnv.value,
               type: 'client',
               target: 'merchant-nginx',
-              host: 'MerchantDcNginx',
+              host: 'MerchantSpNginx',
               tag: tag.value,
-              id: 901,
+              id: 101,
             }),
             icon: 'content_copy',
           });
@@ -209,6 +231,7 @@ export default defineComponent({
       tag,
       tagRules,
       forward,
+      backoffice,
       merchant,
       tcForward,
       merchants,
