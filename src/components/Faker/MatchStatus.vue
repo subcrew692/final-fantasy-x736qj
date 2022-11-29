@@ -31,7 +31,7 @@
       </q-icon>
     </template>
   </q-input>
-  <q-input color="teal" outlined v-model.number="theModel.matchStatusCode" label="MatchStatusCode" clearable />
+  <q-select outlined v-model="theModel.matchStatusCode" :options="statusCodeList" clearable label="MatchStatusCode" emit-value map-options></q-select>
   <div class="row">
     <div class="col-3" style="align-items: center; justify-content: center; display: flex">CurrentServer</div>
     <div class="col-9">
@@ -42,7 +42,16 @@
   </div>
 </template>
 <script lang="ts">
-import { MatchStatus, EnumToSelectOptions } from '@/models/enum';
+import {
+  MatchStatus,
+  EnumToSelectOptions,
+  Sports,
+  SoccerStatusCode,
+  BasketballStatusCode,
+  TennisStatusCode,
+  TableTennisStatusCode,
+  VolleyballStatusCode,
+} from '@/models/enum';
 import { computed, defineComponent } from 'vue';
 
 export default defineComponent({
@@ -58,10 +67,26 @@ export default defineComponent({
   setup(props) {
     const statusList = EnumToSelectOptions(MatchStatus);
     const theModel = computed(() => props.modelValue);
+    const statusCodeList = computed(() => {
+      switch (props.sportId) {
+        case Sports.Soccer:
+          return EnumToSelectOptions(SoccerStatusCode);
+        case Sports.Basketball:
+          return EnumToSelectOptions(BasketballStatusCode);
+        case Sports.Tennis:
+          return EnumToSelectOptions(TennisStatusCode);
+        case Sports.TableTennis:
+          return EnumToSelectOptions(TableTennisStatusCode);
+        case Sports.Volleyball:
+          return EnumToSelectOptions(VolleyballStatusCode);
+        default:
+          return [];
+      }
+    });
     theModel.value.isLive = false;
     theModel.value.liveCoverage = false;
     theModel.value.neutralGround = false;
-    return { statusList, theModel };
+    return { statusList, statusCodeList, theModel };
   },
 });
 </script>

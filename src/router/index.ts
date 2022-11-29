@@ -23,7 +23,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/faker',
     name: 'Faker',
-    component: () => import(/* webpackChunkName: "generate" */ '../views/Faker.vue'),
+    component: () => import(/* webpackChunkName: "faker" */ '../views/Faker.vue'),
   },
 ];
 

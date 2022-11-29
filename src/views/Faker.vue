@@ -3,7 +3,7 @@
     <q-form @submit="onSubmit">
       <div class="q-pa-md" style="max-width: 500px">
         <div class="q-gutter-md">
-          <q-select outlined v-model="payloadType" :options="payloadList" clearable label="Payload Type" map-options>
+          <q-select outlined v-model="payloadType" :options="payloadList" label="Payload Type" map-options>
             <template v-slot:option="scope">
               <q-item v-bind="scope.itemProps">
                 <q-item-section>
@@ -12,7 +12,7 @@
               </q-item>
             </template>
           </q-select>
-          <q-select outlined v-model="sportId" :options="sports" clearable label="Sport" map-options>
+          <q-select outlined v-model="sportId" :options="sports" label="Sport" map-options>
             <template v-slot:option="scope">
               <q-item v-bind="scope.itemProps">
                 <q-item-section>
@@ -56,7 +56,7 @@ export default defineComponent({
   components: { ...FakerComponent },
   setup() {
     const payloadList = EnumToSelectOptions(WebSocketPayloadType);
-    const payloadType: Ref<ISelectOption> = ref(payloadList[3]);
+    const payloadType: Ref<ISelectOption> = ref(payloadList[0]);
     const sports = EnumToSelectOptions(Sports);
     const sportId: Ref<ISelectOption> = ref(sports[0]);
     const inputRule = (feild: string) => [(val) => !!val || `${feild} is required`];

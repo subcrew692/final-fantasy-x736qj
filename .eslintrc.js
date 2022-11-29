@@ -30,5 +30,6 @@ module.exports = {
     'operator-linebreak': 0,
     'no-param-reassign': 0,
     '@typescript-eslint/no-inferrable-types': 0,
+    'no-return-assign': 0,
   },
 };

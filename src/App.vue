@@ -15,6 +15,7 @@
       <q-tabs align="left">
         <q-route-tab to="/generate" label="generate" exact />
         <q-route-tab to="/faker" label="fakers" exact />
+        <q-route-tab to="/about" label="about" exact />
         <!-- <q-route-tab to="/page2" label="Page Two" exact />
         <q-route-tab to="/page3" label="Page Three" exact /> -->
       </q-tabs>

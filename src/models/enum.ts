@@ -20,6 +20,13 @@ export enum MatchStatus {
   Ended = 5,
 }
 
+export enum MarketLineStatus {
+  Open = 0,
+  Suspended = 1,
+  Inactive = 2,
+  Closed = 3,
+}
+
 export enum ScoreType {
   Goals = 0,
   Corners = 1,
@@ -43,6 +50,74 @@ export enum Sports {
   TableTennis,
   Volleyball,
   BoxingFighting,
+}
+
+export enum SoccerStatusCode {
+  FirstHalf = 6,
+  SecondHalf = 7,
+  HalfTime = 31,
+  BeforeExtraTimeKickOff = 32,
+  ExtraTimeHalfTime = 33,
+  BeforePenalty = 34,
+  OverTimeFirstHalf = 41,
+  OverTimeSecondHalf = 42,
+  Penalty = 50,
+  Interrupted = 80,
+  Abandoned = 90,
+}
+
+export enum BasketballStatusCode {
+  FirstHalf = 6,
+  SecondHalf = 7,
+  FirstQuarter = 13,
+  SecondQuarter = 14,
+  ThirdQuarter = 15,
+  FourthQuarter = 16,
+  HalfTime = 31,
+  AwaitingExtraTime = 32,
+  ExtraTime = 40,
+  Interrupted = 80,
+  Abandoned = 90,
+  EndOfFirstQuarter = 301,
+  EndOfSecondQuarter = 302,
+  EndOfThirdQuarter = 303,
+}
+
+export enum TennisStatusCode {
+  FirstSet = 8,
+  SecondSet = 9,
+  ThirdSet = 10,
+  FourthSet = 11,
+  FifthSet = 12,
+  StartDelayed = 61,
+  Interrupted = 80,
+  Abandoned = 90,
+}
+
+export enum TableTennisStatusCode {
+  FirstSet = 8,
+  SecondSet = 9,
+  ThirdSet = 10,
+  FourthSet = 11,
+  FifthSet = 12,
+  Sixth = 441,
+  Seventh = 442,
+  StartDelayed = 61,
+  Interrupted = 80,
+  Abandoned = 90,
+}
+
+export enum VolleyballStatusCode {
+  FirstSet = 8,
+  SecondSet = 9,
+  ThirdSet = 10,
+  FourthSet = 11,
+  FifthSet = 12,
+  Sixth = 441,
+  Seventh = 442,
+  StartDelayed = 61,
+  Interrupted = 80,
+  Abandoned = 90,
 }
 
 export interface IMatchStatusChange {
