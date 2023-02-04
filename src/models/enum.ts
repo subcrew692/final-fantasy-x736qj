@@ -50,6 +50,7 @@ export enum Sports {
   TableTennis,
   Volleyball,
   BoxingFighting,
+  Baseball = 9,
 }
 
 export enum SoccerStatusCode {
@@ -118,6 +119,61 @@ export enum VolleyballStatusCode {
   StartDelayed = 61,
   Interrupted = 80,
   Abandoned = 90,
+}
+
+export enum BoxingStatusCode {
+  StartDelayed = 61,
+  FirstBreak = 301,
+  SecondBreak = 302,
+  ThirdBreak = 303,
+  FourthBreak = 304,
+  FirstRound = 540,
+  SecondRound = 541,
+  ThirdRound = 542,
+  FourthRound = 543,
+  FifthRound = 544,
+}
+
+export enum BaseballStatusCode {
+  FirstInningTop = 401,
+  FirstInningBottom,
+  SecondInningTop,
+  SecondInningBottom,
+  ThirdInningTop,
+  ThirdInningBottom,
+  FourthInningTop,
+  FourthInningBottom,
+  FifthInningTop,
+  FifthInningBottom,
+  SixthInningTop,
+  SixthInningBottom,
+  SeventhInningTop,
+  SeventhInningBottom,
+  EigththInningTop,
+  EigththInningBottom,
+  NinethInningTop,
+  NinethInningBottom,
+  ExtraInningTop,
+  ExtraInningBottom,
+  Break1Top,
+  Break1Bottom,
+  Break2Top,
+  Break2Bottom,
+  Break3Top,
+  Break3Bottom,
+  Break4Top,
+  Break4Bottom,
+  Break5Top,
+  Break5Bottom,
+  Break6Top,
+  Break6Bottom,
+  Break7Top,
+  Break7Bottom,
+  Break8Top,
+  Break8Bottom,
+  Break9Top,
+  Break9Bottom,
+  BreakExtra,
 }
 
 export interface IMatchStatusChange {

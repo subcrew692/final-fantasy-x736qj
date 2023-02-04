@@ -8,25 +8,26 @@
 import { ScoreType, Sports, ISelectOption } from '@/models/enum';
 import { computed, defineComponent } from 'vue';
 
+interface IScoreTypeMapper {
+  [key: number]: ScoreType[];
+}
+
+const scoreTypeMapper: IScoreTypeMapper = {
+  [Sports.Soccer]: [ScoreType.Goals, ScoreType.Corners, ScoreType.RedCards, ScoreType.YellowCards, ScoreType.YellowRedCards, ScoreType.Cards, ScoreType.Proposition],
+  [Sports.Basketball]: [ScoreType.Point, ScoreType.Proposition],
+  [Sports.Tennis]: [ScoreType.Set, ScoreType.Game, ScoreType.GamePoint, ScoreType.Proposition],
+  [Sports.TableTennis]: [ScoreType.Game, ScoreType.GamePoint, ScoreType.Proposition],
+  [Sports.Volleyball]: [ScoreType.VolleyballSet, ScoreType.VolleyballPoint, ScoreType.Proposition],
+};
+
 function filterScoreType(sportId: number): ISelectOption[] {
   return Object.entries(ScoreType)
     .filter((x) => {
       if (typeof x[1] !== 'number') {
         return false;
       }
-      switch (sportId) {
-        case Sports.Soccer:
-          return x[1] <= 5;
-        case Sports.Basketball:
-          return x[1] === ScoreType.Point;
-        case Sports.Tennis:
-          return x[1] >= ScoreType.Set && x[1] <= ScoreType.GamePoint;
-        case Sports.TableTennis:
-        case Sports.Volleyball:
-          return x[1] >= ScoreType.Game && x[1] <= ScoreType.GamePoint;
-        default:
-          return x[1] === ScoreType.Proposition;
-      }
+      const mapper = scoreTypeMapper[sportId];
+      return mapper && mapper.includes(x[1]);
     })
     .map((a) => ({ value: a[1] as number, label: a[0] }));
 }

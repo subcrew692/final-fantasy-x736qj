@@ -51,6 +51,8 @@ import {
   TennisStatusCode,
   TableTennisStatusCode,
   VolleyballStatusCode,
+  BoxingStatusCode,
+  BaseballStatusCode,
 } from '@/models/enum';
 import { computed, defineComponent } from 'vue';
 
@@ -79,6 +81,10 @@ export default defineComponent({
           return EnumToSelectOptions(TableTennisStatusCode);
         case Sports.Volleyball:
           return EnumToSelectOptions(VolleyballStatusCode);
+        case Sports.BoxingFighting:
+          return EnumToSelectOptions(BoxingStatusCode);
+        case Sports.Baseball:
+          return EnumToSelectOptions(BaseballStatusCode);
         default:
           return [];
       }
