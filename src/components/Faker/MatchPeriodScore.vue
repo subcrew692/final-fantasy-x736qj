@@ -18,6 +18,7 @@ const scoreTypeMapper: IScoreTypeMapper = {
   [Sports.Tennis]: [ScoreType.Set, ScoreType.Game, ScoreType.GamePoint, ScoreType.Proposition],
   [Sports.TableTennis]: [ScoreType.Game, ScoreType.GamePoint, ScoreType.Proposition],
   [Sports.Volleyball]: [ScoreType.VolleyballSet, ScoreType.VolleyballPoint, ScoreType.Proposition],
+  [Sports.Baseball]: [ScoreType.BaseballRun, ScoreType.BaseballOut],
 };
 
 function filterScoreType(sportId: number): ISelectOption[] {

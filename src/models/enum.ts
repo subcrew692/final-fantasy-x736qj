@@ -41,6 +41,8 @@ export enum ScoreType {
   Proposition = 10,
   VolleyballSet = 10501,
   VolleyballPoint = 10502,
+  BaseballRun = 10901,
+  BaseballOut = 10902
 }
 
 export enum Sports {
